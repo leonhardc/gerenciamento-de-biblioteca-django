@@ -1,3 +1,26 @@
 # Ambiente virtual do projeto
 
 venv/
+
+# Arquivos ignorados do app princial
+biblioteca/__pycache__
+
+# Arquivos e diretórios ignorados do app livro
+
+livro/migrations/
+livro/__pycache__/
+
+# Arquivos e diretórios ignorados do app autor
+
+autor/migrations/
+autor/__pycache__/
+
+# Arquivos e diretórios ignorados do app curso
+
+curso/migrations/
+curso/__pycache__/
+
+# Arquivos e diretórios ignorados do app usuário
+
+usuario/migrations/
+usuario/__pycache__/
