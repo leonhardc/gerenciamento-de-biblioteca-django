@@ -6,7 +6,6 @@ class LivroAdmin(admin.ModelAdmin):
         'isbn',
         'titulo',
         'qt_copias',
-        'autores',
     ]
 
 class CategoriaAdmin(admin.ModelAdmin):
