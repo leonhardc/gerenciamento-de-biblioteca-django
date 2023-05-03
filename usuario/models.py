@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.conf import settings
 from curso.models import Curso
 from django.db import models
@@ -44,7 +45,10 @@ ESTADOS = (
 # Model compartilhado por todas as classes abaixo, que é o endereço
 class Endereco(models.Model):
 
+    usuario = models.OneToOneField(User, verbose_name='Usuario', on_delete=models.CASCADE)
+
     rua = models.CharField(max_length=50, blank=True, verbose_name='Rua')
+    numero = models.CharField(max_length=6, blank=True, verbose_name='Numero')
     bairro = models.CharField(max_length=50, blank=True, verbose_name='Bairro')
     cidade = models.CharField(max_length=50, blank=True, verbose_name='Cidade')
     estado = models.CharField(
@@ -55,9 +59,15 @@ class Endereco(models.Model):
         verbose_name='Estado'
     )
     cep = models.CharField(max_length=8, blank=True, verbose_name='CEP')
+    complemento = models.CharField(max_length=150, blank=True, verbose_name='Complemento')
+
+    def __str__(self) -> str:
+        return f'{self.rua}, {self.numero}, {self.bairro}, {self.cidade}, {self.estado}, {self.cep}'
 
 # Model do usuário do tipo aluno
 class Aluno(models.Model):
+
+    usuario = models.OneToOneField(User, verbose_name='Usuario/Aluno', on_delete=models.CASCADE)
 
     imagem = models.ImageField(
         upload_to='img/aluno/%Y/%m/%d', 
@@ -71,9 +81,7 @@ class Aluno(models.Model):
         blank=False, 
         verbose_name='Matricula'
     )
-    nome = models.CharField(max_length=100, blank=False, verbose_name='Nome')
     cod_curso = models.ForeignKey(Curso, on_delete=models.DO_NOTHING, verbose_name='Código do Curso')
-    endereco = models.OneToOneField(Endereco, null=True, on_delete=models.CASCADE)
     telefone = models.CharField(max_length=11, blank=True, null=True, verbose_name='Telefone/Celular')
     ingresso = models.DateField(blank=True, null=True, verbose_name='Data de Ingresso')
     conclusao = models.DateField(blank=True, null=True, verbose_name='Conclusão Prevista')
@@ -109,6 +117,8 @@ class Aluno(models.Model):
 # Model do usuário do tipo Professor
 class Professor(models.Model):
 
+    usuario = models.OneToOneField(User, verbose_name='Usuario/Professor', on_delete=models.CASCADE)
+
     imagem = models.ImageField(
         upload_to='img/professor/%Y/%m/%d', 
         blank=True, 
@@ -117,7 +127,6 @@ class Professor(models.Model):
     )
     siape = models.CharField(max_length=6, unique=True, blank=False, verbose_name='SIAPE')
     nome = models.CharField(max_length=100, blank=False, verbose_name='Nome')
-    endereco = models.OneToOneField(Endereco, null=True, on_delete=models.CASCADE)
     telefone = models.CharField(max_length=11, blank=True, null=True, verbose_name='Telefone/Celular')
     regime = models.CharField(
         max_length=2, 
@@ -159,6 +168,8 @@ class Professor(models.Model):
 # Model do usuário do tipo 'Funcionário'
 class Funcionario(models.Model):
 
+    usuario = models.OneToOneField(User, verbose_name='Usuario/Funcionario', on_delete=models.CASCADE)
+
     imagem = models.ImageField(
         upload_to='img/funcionario/%Y/%m/%d', 
         blank=True, 
@@ -167,7 +178,6 @@ class Funcionario(models.Model):
     )
     matricula = models.CharField(max_length=6, unique=True, blank=False, verbose_name='Matrícula')
     nome = models.CharField(max_length=100, blank=False, verbose_name='Nome')
-    endereco = models.OneToOneField(Endereco, null=True, on_delete=models.CASCADE)
     telefone = models.CharField(max_length=11, blank=True, null=True, verbose_name='Telefone/Celular')
 
     # Método para redimensionar imagem
