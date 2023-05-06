@@ -68,7 +68,6 @@ class Endereco(models.Model):
 class Aluno(models.Model):
 
     usuario = models.OneToOneField(User, verbose_name='Usuario/Aluno', on_delete=models.CASCADE)
-
     imagem = models.ImageField(
         upload_to='img/aluno/%Y/%m/%d', 
         blank=True, 
@@ -85,29 +84,10 @@ class Aluno(models.Model):
     telefone = models.CharField(max_length=11, blank=True, null=True, verbose_name='Telefone/Celular')
     ingresso = models.DateField(blank=True, null=True, verbose_name='Data de Ingresso')
     conclusao = models.DateField(blank=True, null=True, verbose_name='Conclusão Prevista')
-    
-    # Método para redimensionar o tamanho da imagem de perfil para otimizar espaço no banco de dados
-    @staticmethod
-    def redimensionar_imagem(img, max_width=800):
-        img_full_path = os.path.join(settings.MEDIA_ROOT, img.name)
-        image_pil = Image.open(img_full_path)
-        original_width, original_height = image_pil.size 
-        
-        if original_width <= max_width:
-            image_pil.close() 
-            return
-
-        new_height = round((max_width * original_height) / original_width) 
-        new_image = image_pil.resize((max_width, new_height), Image.LANCZOS) 
-        new_image.save(         
-            img_full_path,   
-            optimize=True,
-            quality=50  
-        )
 
     # Representação do Objeto
     def __str__(self) -> str:
-        return f'Aluno: {self.matricula} - {self.nome}'
+        return f'Aluno: {self.matricula} - {self.usuario.first_name} {self.usuario.last_name}'
     
     # Representação da classe na area administrativa
     class Meta:
@@ -137,25 +117,6 @@ class Professor(models.Model):
     cod_curso = models.ForeignKey(Curso, on_delete=models.DO_NOTHING, verbose_name='Código do Curso')
     contratacao = models.DateField(blank=True, null=True, verbose_name='Data de Contratação')
 
-    # Método para redimensionar imagem
-    @staticmethod
-    def redimensionar_imagem(img, max_width=800):
-
-        img_full_path = os.path.join(settings.MEDIA_ROOT, img.name)
-        image_pil = Image.open(img_full_path)
-        original_width, original_height = image_pil.size 
-        if original_width <= max_width:
-            image_pil.close() 
-            return
-
-        new_height = round((max_width * original_height) / original_width) 
-        new_image = image_pil.resize((max_width, new_height), Image.LANCZOS) 
-        new_image.save(         
-            img_full_path,   
-            optimize=True,
-            quality=50  
-        )
-
     # Representação do objeto
     def __str__(self) -> str:
         return f'Professor: {self.matricula} - {self.nome}'
@@ -179,25 +140,6 @@ class Funcionario(models.Model):
     matricula = models.CharField(max_length=6, unique=True, blank=False, verbose_name='Matrícula')
     nome = models.CharField(max_length=100, blank=False, verbose_name='Nome')
     telefone = models.CharField(max_length=11, blank=True, null=True, verbose_name='Telefone/Celular')
-
-    # Método para redimensionar imagem
-    @staticmethod
-    def redimensionar_imagem(img, max_width=800):
-
-        img_full_path = os.path.join(settings.MEDIA_ROOT, img.name)
-        image_pil = Image.open(img_full_path)
-        original_width, original_height = image_pil.size 
-        if original_width <= max_width:
-            image_pil.close() 
-            return
-
-        new_height = round((max_width * original_height) / original_width) 
-        new_image = image_pil.resize((max_width, new_height), Image.LANCZOS) 
-        new_image.save(         
-            img_full_path,   
-            optimize=True,
-            quality=50  
-        )
 
     # Representação do objeto
     def __str__(self) -> str:
