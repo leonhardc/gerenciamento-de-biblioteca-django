@@ -2,6 +2,10 @@
 
 venv/
 
+# Diretório de fotos dos usuários do sistema
+
+media/
+
 # Arquivos ignorados do app princial
 biblioteca/__pycache__
 
