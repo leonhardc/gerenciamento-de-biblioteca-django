@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {% include 'parciais/_head.html' %}
+</head>
+<body class="bg-black">
+    <header>
+        {% include 'parciais/_header.html' %}
+    </header>
+
+    <main style="width:100%; min-height: 100vh;">
+        {% block content %}{% endblock %}
+        {% include 'parciais/_scripts.html' %}
+    </main>
+
+    {% include 'parciais/_footer.html' %}
+
+</body>
+</html>
