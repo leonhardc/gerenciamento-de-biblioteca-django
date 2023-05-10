@@ -8,12 +8,14 @@
         {% include 'parciais/_header.html' %}
     </header>
 
-    <main style="width:100%; min-height: 100vh;">
+    <main>
         {% block content %}{% endblock %}
         {% include 'parciais/_scripts.html' %}
     </main>
 
-    {% include 'parciais/_footer.html' %}
+    <footer>
+        {% include 'parciais/_footer.html' %}
+    </footer>
 
 </body>
 </html>
