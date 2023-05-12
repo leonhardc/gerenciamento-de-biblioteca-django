@@ -1,4 +1,55 @@
-ul {
+
+  /* Fira-code */
+  
+  @font-face {
+    font-family: fira-code;
+    src: url('./../../fonts/foracode/FiraCode-Regular.ttf');
+  }
+
+  @font-face {
+    font-family: fira-code-bold;
+    src: url('./../../fonts/foracode/FiraCode-Bold.ttf');
+  }
+
+  @font-face {
+    font-family: fira-code-light;
+    src: url('./../../fonts/foracode/FiraCode-Light.ttf');
+  }
+
+  /* Fira-code */
+  
+  body {
+    font-family: fira-code;
+    overflow-x: hidden;
+    overflow-y: unset;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: fira-code-bold;
+  }
+
+  footer{
+    font-family: fira-code-light;
+  }
+
+  body::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: black;        /* color of the tracking area */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: gray;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+  }
+  
+  .w100 {
+    width: 100%;
+  }
+
+  ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -20,39 +71,70 @@ ul {
   }
   
   /* Underline styles */
-  a {
+  .scale-from-center {
     display: block;
     position: relative;
     padding: 0.2em 0;
   }
   
   /* Fade in */
-  a::after {
+  .scale-from-center::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 0.1em;
-    background-color: hotpink;
+    background-color: grey;
     opacity: 0;
     transition: opacity 300ms, transform 300ms;
   }
   
-  a:hover::after,
-  a:focus::after {
-    opacity: 1;
-    transform: translate3d(0, 0.2em, 0);
-  }
-  
   /* Scale from center */
-  li:nth-child(n) a::after {
+  li:nth-child(n) .scale-from-center::after {
     opacity: 1;
     transform: scale(0);
     transform-origin: center;
   }
   
-  li:nth-child(n) a:hover::after,
-  li:nth-child(n) a:focus::after{
+  li:nth-child(n) .scale-from-center:hover::after,
+  li:nth-child(n) .scale-from-center:focus::after{
     transform: scale(1);
+  }
+
+  .link {
+    color: grey;
+    position: relative;
+    opacity: 0.5;
+    transform-origin: center;
+    transition-property: opacity;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+  }
+
+  .link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1em;
+    opacity: 1;
+    transform: scale(0);
+    transition: transform 300ms;
+    border-bottom: 2px solid grey;
+  }
+
+  .link:hover {
+    opacity: 1;  
+  }
+
+  .link:hover::after {
+    transform: scale(1);
+  }
+
+  .shadow-element {
+    background: linear-gradient(225deg, #000000, #2d2d2d);
+    box-shadow:  -28px 28px 100px #1e1e1e,
+                28px -28px 100px #1e1e1e;
   }
