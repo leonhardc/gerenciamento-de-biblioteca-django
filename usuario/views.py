@@ -52,17 +52,19 @@ def login(request):
 
         aluno = Aluno.objects.filter(usuario__username = usuario) 
         if aluno:
-            # auth.login(request, usuario)
+            auth.login(request, usuario)
             return redirect('/biblioteca-aluno/')
 
         # Verificar se o usuário é um professor
         professor = Professor.objects.filter(usuario__username = usuario)
         if professor:
+            auth.login(request, usuario)
             return redirect('/biblioteca-professor/')
 
         # Verificar de o usuário é um funcionário
         funcionario = Funcionario.objects.filter(usuario__username = usuario)
         if funcionario:
+            auth.login(request, usuario)
             return redirect('/biblioteca-funcionario/')
             # Verificar se o usuário é um administrador, se sim, logar na ppagina de admin
             # se não, logar na página de funcionário comum
