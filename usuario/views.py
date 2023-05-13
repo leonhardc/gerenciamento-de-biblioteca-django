@@ -42,29 +42,27 @@ def login(request):
     usuario = request.POST.get('usuario')
     senha = request.POST.get('senha')
 
-    print(f'<usuario: ', usuario, '; senha: ', senha, '>')
-
-    usuario = authenticate(
+    user = authenticate(
         username = usuario,
         password = senha
     )
 
-    if usuario is not None:
+    if user:
         # Verificar se o usuário é um aluno
 
-        aluno = Aluno.objects.get(usuario = usuario) 
-        if aluno is not None:
+        aluno = Aluno.objects.filter(usuario__username = usuario) 
+        if aluno:
             # auth.login(request, usuario)
             return redirect('/biblioteca-aluno/')
 
         # Verificar se o usuário é um professor
-        professor = Professor.objects.get(usuario = usuario)
-        if professor is not None:
+        professor = Professor.objects.filter(usuario__username = usuario)
+        if professor:
             return redirect('/biblioteca-professor/')
 
         # Verificar de o usuário é um funcionário
-        funcionario = Funcionario.objects.get(usuario = usuario)
-        if funcionario is not None:
+        funcionario = Funcionario.objects.filter(usuario__username = usuario)
+        if funcionario:
             return redirect('/biblioteca-funcionario/')
             # Verificar se o usuário é um administrador, se sim, logar na ppagina de admin
             # se não, logar na página de funcionário comum
