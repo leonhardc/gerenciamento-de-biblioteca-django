@@ -140,6 +140,7 @@ class Funcionario(models.Model):
     matricula = models.CharField(max_length=6, unique=True, blank=False, verbose_name='Matrícula')
     nome = models.CharField(max_length=100, blank=False, verbose_name='Nome')
     telefone = models.CharField(max_length=11, blank=True, null=True, verbose_name='Telefone/Celular')
+    isAdmin = models.BooleanField(default=False, verbose_name='Administrador')
 
     # Representação do objeto
     def __str__(self) -> str:
