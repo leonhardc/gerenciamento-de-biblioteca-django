@@ -48,7 +48,10 @@ def bibliotecaFuncionario(request):
     if request.method == 'GET':
         isFuncionario = Funcionario.objects.filter(usuario__username = request.user.username)
         if isFuncionario:
-            return render(request, FUNCIONARIO_INDEX)
+            if isFuncionario.first().isAdmin:
+                return render(request, ADMIN_INDEX)
+            else:
+                return render(request, FUNCIONARIO_INDEX)
         else:
             return render(request, NOT_FOUND_404_INDEX)
 
