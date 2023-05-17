@@ -55,7 +55,6 @@ def bibliotecaFuncionario(request):
         else:
             return render(request, NOT_FOUND_404_INDEX)
 
-
 @login_required(redirect_field_name='login')
 def bibliotecaAdmin(request):
     return render(request, ADMIN_INDEX)
@@ -89,8 +88,6 @@ def login(request):
             if funcionario:
                 auth.login(request, user)
                 return redirect('/biblioteca-funcionario/')
-                # Verificar se o usuário é um administrador, se sim, logar na ppagina de admin
-                # se não, logar na página de funcionário comum
             pass
         else:
             # Retornar uma mensagem de erro
@@ -98,3 +95,10 @@ def login(request):
     
     else: 
         return render(request, LOGIN)
+
+@login_required(redirect_field_name='login')
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
+
+    
