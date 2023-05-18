@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Livro, Categoria
+from .models import Livro, Categoria, Autor
 
 class LivroAdmin(admin.ModelAdmin):
     list_display = [
@@ -15,5 +15,13 @@ class CategoriaAdmin(admin.ModelAdmin):
         'desc_categoria',
     ]
 
+class AutorAdmin(admin.ModelAdmin):
+    list_display = [
+        'nome',
+        'cpf',
+        'nacionalidade',
+    ]
+
 admin.site.register(Livro, LivroAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
+admin.site.register(Autor, AutorAdmin)
