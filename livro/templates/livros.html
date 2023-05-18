@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <h1 class="text-center text-light">-- Livros --</h1>
+
+    <div class=" mx-5 text-light">
+        
+        <div class="row border">
+            <div class="col">ISBN</div>
+            <div class="col">Titulo</div>
+            <div class="col">Categoria</div>
+            <div class="col">Cópias</div>
+        </div>
+        {% for livro in livros %}
+            <div class="row">
+                <div class="col">{{ livro.isbn }}</div>
+                <div class="col">{{ livro.titulo }}</div>
+                <div class="col">
+                    
+                    {% for categoria in livro.categoria.all %}
+                        {{ categoria.nome_categoria }}
+                    {% endfor %}
+                        
+                </div>
+                <div class="col">{{ livro.qt_copias }}</div>
+            </div>
+        {% endfor %}
+          
+    </div>
+{% endblock content %}
+    
