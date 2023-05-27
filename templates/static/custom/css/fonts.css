@@ -1,0 +1,19 @@
+
+  /* Fira-code */
+  
+  @font-face {
+    font-family: fira-code;
+    src: url('./../../fonts/foracode/FiraCode-Regular.ttf');
+  }
+
+  @font-face {
+    font-family: fira-code-bold;
+    src: url('./../../fonts/foracode/FiraCode-Bold.ttf');
+  }
+
+  @font-face {
+    font-family: fira-code-light;
+    src: url('./../../fonts/foracode/FiraCode-Light.ttf');
+  }
+
+  /* Fira-code */

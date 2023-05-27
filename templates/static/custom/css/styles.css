@@ -1,23 +1,4 @@
-
-  /* Fira-code */
-  
-  @font-face {
-    font-family: fira-code;
-    src: url('./../../fonts/foracode/FiraCode-Regular.ttf');
-  }
-
-  @font-face {
-    font-family: fira-code-bold;
-    src: url('./../../fonts/foracode/FiraCode-Bold.ttf');
-  }
-
-  @font-face {
-    font-family: fira-code-light;
-    src: url('./../../fonts/foracode/FiraCode-Light.ttf');
-  }
-
-  /* Fira-code */
-  
+ 
   body {
     font-family: fira-code;
     overflow-x: hidden;
@@ -137,4 +118,12 @@
     background: linear-gradient(225deg, #000000, #2d2d2d);
     box-shadow:  -28px 28px 100px #1e1e1e,
                 28px -28px 100px #1e1e1e;
+  }
+
+  .text-grey {
+    color: rgb(187, 187, 187);
+  }
+
+  .min-heigth100vh {
+    min-height: 100vh;
   }
