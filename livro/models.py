@@ -42,3 +42,12 @@ class Livro(models.Model):
         verbose_name = 'Livro'
         verbose_name_plural = 'Livros'
 
+#  Model de reservas de livros
+class Reservas(models.Model):
+    usuario = models.ManyToManyField(User, verbose_name='Usuario')
+    livro = models.ManyToManyField(Livro, verbose_name='livro')
+
+    class Meta:
+        verbose_name = 'Reserva'
+        verbose_name_plural = 'Reservas'
+
