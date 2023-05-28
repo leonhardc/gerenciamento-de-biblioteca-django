@@ -46,6 +46,7 @@ class Livro(models.Model):
 class Reservas(models.Model):
     usuario = models.ManyToManyField(User, verbose_name='Usuario')
     livro = models.ManyToManyField(Livro, verbose_name='livro')
+    data_reserva = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name = 'Reserva'
