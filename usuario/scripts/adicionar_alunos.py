@@ -1,12 +1,13 @@
-# from usuario.models import Aluno
-# from django.contrib.auth.models import User
+from usuario.models import Aluno, Endereco
+from curso.models import Curso
+from django.contrib.auth.models import User
 from faker import Faker
 import random
 import string
 import re
+import datetime
 
 fake = Faker('pt_BR')
-
 
 def gerar_senha(tamanho=8):
     # gerar uma senha aleatoria de 8 digitos
@@ -25,7 +26,7 @@ def adicionar_usuario():
     username = re.sub('[^a-zA-Z0-9]', '', name_list[0] + '_' + name_list[1])
     first_name = name_list[0]
     last_name = " ".join(name_list[1:])
-    email = name_list[0] + "_" + name_list[1] + "@email.com"
+    email = name_list[0].lower() + "_" + name_list[1].lower() + "@email.com"
     senha = gerar_senha()
     # Criando usuário no django
     usuario_existe = User.objects.filter(username=username).exists()
@@ -77,30 +78,77 @@ def gerar_endereco_brasileiro():
     }
     return endereco_dict
 
+
+def gerar_datas():
+    # Gerar datas de inicio e fim do curso
+    ano = random.randint(2015, 2023)
+    datas_dict = {
+        'data_inicio': datetime.date(ano, 1, 1),
+        'data_fim': datetime.date(ano+4, 12, 31)
+    }
+    return datas_dict
+
+
+def gerar_matricula():
+    return str(random.randint(111111, 999999))
+
+def gerar_numero_telefone():
+    ddd = random.randint(11, 99)  # Gera um DDD entre 11 e 99
+    parte1 = random.randint(1000, 9999)  # Gera a primeira parte do número (4 dígitos)
+    parte2 = random.randint(1000, 9999)  # Gera a segunda parte do número (4 dígitos)    
+    numero_telefone = f"({ddd}) {parte1}-{parte2}"
+    return numero_telefone
+
+# TODO: Implementar funcionalidade de adicionar um aluno no banco de dados
 def adicionar_aluno():
-    # Adicionar um aluno na base de dados
-    pass
+    usuario_aluno = adicionar_usuario() # Adicionando o usuário na base de dados
+    endereco_dict = gerar_endereco_brasileiro() # Definindo o endereco do aluno
+    endereco_aluno = Endereco(
+        usuario = usuario_aluno,
+        rua = endereco_dict['rua'],
+        numero = endereco_dict['numero'],
+        bairro = endereco_dict['bairro'],
+        cidade = endereco_dict['cidade'],
+        estado = endereco_dict['estado'],
+        cep = endereco_dict['cep'],
+        complemento = "..."
+    )
+    endereco_aluno.save()
+    cursos = Curso.objects.all() # Escolhendo o curso do aluno
+    curso_aluno = cursos[random.randint(0, len(cursos)-1)]
+    data_inicio_fim = gerar_datas()
+    aluno = Aluno( # Definindo o objeto aluno
+        usuario = usuario_aluno,
+        cod_curso = curso_aluno,
+        matricula = gerar_matricula(),
+        telefone = gerar_numero_telefone(),
+        ingresso = data_inicio_fim['data_inicio'],
+        conclusao = data_inicio_fim['data_fim']
+    )
+    aluno.save()
+
+def loadBarr(estado_atual, estado_final):
+    # estado_final: numero inteiro que guarda o numero total de amostras do
+    # conjunto de amostras que está sendo avaliado
+    # estado_inicial: numero inteiro que armazena o indice atual da amostra que
+    # está sendo processada
+    # estado_atual não pode nunca ser maior que estado_final    
+    etapa = (estado_atual/estado_final)*100
+    str_etapa = ''
+    str_saida = '\r'
+    for i in  range(1, 101):
+        if i<etapa and i%2:            
+            str_etapa = str_etapa + '*'
+    str_saida = '\r[' + str_etapa + '] ' + str(int(etapa)) + '%'
+    print(str_saida, end = '')  
+    if etapa == 100:
+        print('\n')
+        print('Concluido ... ')
+    # fim da função loadBarr()
     
 def main():
-    adicionados = 0
-    nao_adicionados = 0
-    for _ in range(30):
-        usuario = adicionar_usuario()
-        if usuario:
-            print(usuario, ': Adicionado com sucesso!')
-            adicionados += 1
-        else:
-            print("O usuário que você tentou adicionar já existe na base de dados")
-            nao_adicionados += 1
-    print(f'{adicionados} usuários adicionados com sucesso, {nao_adicionados} falhas.')
-
-    
-if __name__ == '__main__':
-    from pprint import pprint
-    for _ in range(50):
-        endereco = gerar_endereco_brasileiro()
-        endereco_str = f"rua: {endereco['rua']}\nnumero: {endereco['numero']}\nbairro: {endereco['bairro']}\ncep: {endereco['cep']}\ncidade: {endereco['cidade']}\nestado: {endereco['estado']}"
-        print('\n')
-        print(
-            endereco_str
-        )
+    qt_alunos = 50
+    print('Adicionando alunos na base de dados...')
+    for _ in range(qt_alunos):
+        loadBarr(_, qt_alunos-1)
+        adicionar_aluno()
