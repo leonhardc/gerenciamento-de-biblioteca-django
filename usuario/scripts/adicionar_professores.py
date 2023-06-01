@@ -1,4 +1,4 @@
-from usuario.models import Aluno, Endereco
+from usuario.models import Professor, Endereco
 from curso.models import Curso
 from django.contrib.auth.models import User
 from unidecode import unidecode
@@ -19,7 +19,7 @@ def gerar_senha(tamanho=8):
 def remover_acentos(texto):
     return unidecode(texto)
 
-def adicionar_usuario():
+def adicionar_usuario(tipo):
     # gerar um usuário e adicioná-lo em uma base de dados e no banco de dados
     name_list = fake.name().split(" ")
     remover = ['dr.', 'dra.', 'sr.', 'sra.']
@@ -36,8 +36,13 @@ def adicionar_usuario():
     usuario_existe = User.objects.filter(username=username).exists()
     if not usuario_existe:
         # Salvando usuário e senha em um arquivo
-        nome_arquivo = 'alunos.txt'
-        line = f"Usuario: {username} / Senha: {senha}"
+        if tipo == 'Aluno':
+            nome_arquivo = 'alunos.txt'            
+        elif tipo == 'Professor':
+            nome_arquivo = 'professores.txt'
+        elif tipo == 'Funcionario':
+            nome_arquivo = 'funcionarios.txt'
+        line = f"Usuario: {username} / Senha: {senha} (Usuario_{tipo})"
         with open(nome_arquivo, 'a') as arquivo:
             arquivo.writelines(line + '\n')
         ## Verificar se o usuário criado já existe na base de dados
@@ -47,12 +52,6 @@ def adicionar_usuario():
         return user_django
     else:
         return None
-
-
-def gerar_endereco():
-    fake = Faker('pt_BR')
-    endereco = fake.address().replace('\n', ', ')
-    return endereco
 
 
 def gerar_endereco_brasileiro():
@@ -103,35 +102,20 @@ def gerar_numero_telefone():
     numero_telefone = f"({ddd}) {parte1}-{parte2}"
     return numero_telefone
 
-# TODO: Implementar funcionalidade de adicionar um aluno no banco de dados
-def adicionar_aluno():
-    usuario_aluno = adicionar_usuario() # Adicionando o usuário na base de dados
-    if not usuario_aluno:
+
+def adicionar_professor():
+    usuario_professor = adicionar_usuario('Professor')
+    if not usuario_professor:
         return False
-    endereco_dict = gerar_endereco_brasileiro() # Definindo o endereco do aluno
-    endereco_aluno = Endereco(
-        usuario = usuario_aluno,
-        rua = endereco_dict['rua'],
-        numero = endereco_dict['numero'],
-        bairro = endereco_dict['bairro'],
-        cidade = endereco_dict['cidade'],
-        estado = endereco_dict['estado'],
-        cep = endereco_dict['cep'],
-        complemento = "..."
-    )
-    endereco_aluno.save()
-    cursos = Curso.objects.all() # Escolhendo o curso do aluno
-    curso_aluno = cursos[random.randint(0, len(cursos)-1)]
-    data_inicio_fim = gerar_datas()
-    aluno = Aluno( # Definindo o objeto aluno
-        usuario = usuario_aluno,
-        cod_curso = curso_aluno,
-        matricula = gerar_matricula(),
-        telefone = gerar_numero_telefone(),
-        ingresso = data_inicio_fim['data_inicio'],
-        conclusao = data_inicio_fim['data_fim']
-    )
-    aluno.save()
+    regime = ['20', '40', 'DE']
+    cursos = Curso.objects.all()
+    datas = gerar_datas()
+    siape = gerar_matricula()
+    nome_professor = usuario_professor.first_name + usuario_professor.last_name
+    telefone_professor = gerar_numero_telefone()
+    regime_professor = regime[random.randint(0, len(regime)-1)]
+    curso_professor = cursos[random.randint(0, len(cursos)-1)]
+    contratacao = datas['data_inicio']
     return True
 
 def loadBarr(estado_atual, estado_final):
@@ -160,7 +144,7 @@ def main():
     print('Adicionando alunos na base de dados...')
     for _ in range(qt_alunos):
         loadBarr(_, qt_alunos-1)
-        adicionou = adicionar_aluno()
+        adicionou = adicionar_professor()
         if adicionou:
             sucessos += 1
         else:
