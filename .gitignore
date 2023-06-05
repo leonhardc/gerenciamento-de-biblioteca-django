@@ -1,3 +1,8 @@
+# Arquivos do diretorio principal 
+
+admin.txt
+alunos.txt
+
 # Ambiente virtual do projeto
 
 venv/
@@ -5,6 +10,10 @@ venv/
 # Diretório de fotos dos usuários do sistema
 
 media/
+
+# Diretório de scripts de teste e povoamento de dados na aplicação
+
+# scripts/
 
 # Arquivos ignorados do app princial
 biblioteca/__pycache__
