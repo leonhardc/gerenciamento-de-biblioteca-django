@@ -116,6 +116,29 @@ def adicionar_professor():
     regime_professor = regime[random.randint(0, len(regime)-1)]
     curso_professor = cursos[random.randint(0, len(cursos)-1)]
     contratacao = datas['data_inicio']
+    endereco = gerar_endereco_brasileiro()
+    endereco_professor = Endereco(
+        usuario=usuario_professor,
+        rua=endereco['rua'],
+        numero=endereco['numero'],
+        bairro=endereco['bairro'],
+        cidade=endereco['cidade'],
+        estado=endereco['estado'],
+        cep=endereco['cep'],
+        complemento=''
+    )
+    endereco_professor.save()
+    professor = Professor(
+        usuario=usuario_professor,
+        siape=siape,
+        nome=nome_professor,
+        telefone=telefone_professor,
+        regime=regime_professor,
+        cod_curso=curso_professor,
+        contratacao=contratacao
+    )
+    professor.save()
+
     return True
 
 def loadBarr(estado_atual, estado_final):
@@ -138,7 +161,7 @@ def loadBarr(estado_atual, estado_final):
     # fim da função loadBarr()
     
 def main():
-    qt_alunos = 50
+    qt_alunos = 20
     sucessos = 0
     erros = 0
     print('Adicionando alunos na base de dados...')
@@ -149,6 +172,6 @@ def main():
             sucessos += 1
         else:
             erros += 1
-    print(f'{sucessos} alunos adicionados. {erros} alunos não adicionados.')
+    print(f'{sucessos} professores adicionados. {erros} professores não adicionados.')
 
 
