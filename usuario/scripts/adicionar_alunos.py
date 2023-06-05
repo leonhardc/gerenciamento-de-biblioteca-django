@@ -19,7 +19,7 @@ def gerar_senha(tamanho=8):
 def remover_acentos(texto):
     return unidecode(texto)
 
-def adicionar_usuario():
+def adicionar_usuario(tipo):
     # gerar um usuário e adicioná-lo em uma base de dados e no banco de dados
     name_list = fake.name().split(" ")
     remover = ['dr.', 'dra.', 'sr.', 'sra.']
@@ -37,7 +37,7 @@ def adicionar_usuario():
     if not usuario_existe:
         # Salvando usuário e senha em um arquivo
         nome_arquivo = 'alunos.txt'
-        line = f"Usuario: {username} / Senha: {senha}"
+        line = f"Usuario: {username} / Senha: {senha} (Usuario_{tipo})"
         with open(nome_arquivo, 'a') as arquivo:
             arquivo.writelines(line + '\n')
         ## Verificar se o usuário criado já existe na base de dados
@@ -105,7 +105,7 @@ def gerar_numero_telefone():
 
 # TODO: Implementar funcionalidade de adicionar um aluno no banco de dados
 def adicionar_aluno():
-    usuario_aluno = adicionar_usuario() # Adicionando o usuário na base de dados
+    usuario_aluno = adicionar_usuario('Aluno') # Adicionando o usuário na base de dados
     if not usuario_aluno:
         return False
     endereco_dict = gerar_endereco_brasileiro() # Definindo o endereco do aluno
