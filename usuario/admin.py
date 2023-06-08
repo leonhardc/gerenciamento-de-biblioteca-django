@@ -15,6 +15,7 @@ class AlunoAdmin(admin.ModelAdmin):
         'matricula',
         'cod_curso',
         'ingresso',
+        'conclusao',
     ]
 
 class ProfessorAdmin(admin.ModelAdmin):
