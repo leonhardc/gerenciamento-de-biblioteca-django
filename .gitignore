@@ -2,6 +2,12 @@
 
 admin.txt
 alunos.txt
+professores.txt
+funcionarios.txt
+
+# pycache
+
+__pycache__/
 
 # Ambiente virtual do projeto
 
