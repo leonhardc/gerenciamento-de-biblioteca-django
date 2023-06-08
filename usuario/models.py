@@ -42,11 +42,10 @@ ESTADOS = (
     ('TO', 'Tocantins'),
 )
 
+
 # Model compartilhado por todas as classes abaixo, que é o endereço
 class Endereco(models.Model):
-
     usuario = models.OneToOneField(User, verbose_name='Usuario', on_delete=models.CASCADE)
-
     rua = models.CharField(max_length=50, blank=True, verbose_name='Rua')
     numero = models.CharField(max_length=6, blank=True, verbose_name='Numero')
     bairro = models.CharField(max_length=50, blank=True, verbose_name='Bairro')
@@ -64,9 +63,9 @@ class Endereco(models.Model):
     def __str__(self) -> str:
         return f'{self.rua}, {self.numero}, {self.bairro}, {self.cidade}, {self.estado}, {self.cep}'
 
+
 # Model do usuário do tipo aluno
 class Aluno(models.Model):
-
     usuario = models.OneToOneField(User, verbose_name='Usuario/Aluno', on_delete=models.CASCADE)
     imagem = models.ImageField(
         upload_to='img/aluno/%Y/%m/%d', 
@@ -96,9 +95,7 @@ class Aluno(models.Model):
     
 # Model do usuário do tipo Professor
 class Professor(models.Model):
-
     usuario = models.OneToOneField(User, verbose_name='Usuario/Professor', on_delete=models.CASCADE)
-
     imagem = models.ImageField(
         upload_to='img/professor/%Y/%m/%d', 
         blank=True, 
@@ -119,18 +116,17 @@ class Professor(models.Model):
 
     # Representação do objeto
     def __str__(self) -> str:
-        return f'Professor: {self.matricula} - {self.nome}'
+        return f'Professor: {self.siape} - {self.nome}'
     
     # Representação do objeto na area administrativa
     class Meta:
         verbose_name = 'Professor'
         verbose_name_plural = 'Professores'
 
+
 # Model do usuário do tipo 'Funcionário'
 class Funcionario(models.Model):
-
     usuario = models.OneToOneField(User, verbose_name='Usuario/Funcionario', on_delete=models.CASCADE)
-
     imagem = models.ImageField(
         upload_to='img/funcionario/%Y/%m/%d', 
         blank=True, 
