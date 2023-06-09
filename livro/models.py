@@ -43,9 +43,9 @@ class Livro(models.Model):
         verbose_name_plural = 'Livros'
 
 #  Model de reservas de livros
-class Reservas(models.Model):
-    usuario = models.ManyToManyField(User, verbose_name='Usuario')
-    livro = models.ManyToManyField(Livro, verbose_name='livro')
+class Reserva(models.Model):
+    usuario = models.CharField(max_length=50, verbose_name='Usuario')
+    livro = models.CharField(max_length=50, verbose_name='livro')
     data_reserva = models.DateTimeField(default=timezone.now)
 
     class Meta:
