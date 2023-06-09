@@ -2,8 +2,8 @@
 
 admin.txt
 alunos.txt
-professores.txt
-funcionarios.txt
+professor.txt
+funcionario.txt
 
 # pycache
 
