@@ -137,7 +137,12 @@ def adicionar_usuario(tipo):
     usuario_existe = User.objects.filter(username=username).exists()
     if not usuario_existe:
         # Salvando usuário e senha em um arquivo
-        nome_arquivo = 'alunos.txt'
+        if tipo == 'Aluno':
+            nome_arquivo = 'alunos.txt'
+        if tipo == 'Professor':
+            nome_arquivo = 'professor.txt'
+        if tipo == 'Funcionario':
+            nome_arquivo = 'funcionario.txt'
         line = '{0:<15}|{1:^30}|{2:^10}'.format(tipo, username, senha)
         with open(nome_arquivo, 'a') as arquivo:
             arquivo.writelines(line + '\n')
@@ -354,7 +359,7 @@ def main():
             sucessos+=1
         else:
             falhas+=1
-    print(f'{sucessos} cursos adicionados com sucesso. {falhas} falhas.')
+    print(f'\n{sucessos} cursos adicionados com sucesso. {falhas} falhas.')
 
     # Adicionando Autores na base de dados
     sucessos = 0
@@ -366,7 +371,7 @@ def main():
             sucessos+=1
         else:
             falhas+=1
-    print(f'{sucessos} autores adicionados com sucesso. {falhas} falhas.')
+    print(f'\n{sucessos} autores adicionados com sucesso. {falhas} falhas.')
 
     # Adicionando categorias na base de dados
     sucessos = 0
@@ -378,7 +383,7 @@ def main():
             sucessos+=1
         else:
             falhas+=1
-    print(f'{sucessos} categorias adicionadas com sucesso. {falhas} falhas.')
+    print(f'\n{sucessos} categorias adicionadas com sucesso. {falhas} falhas.')
 
     # Adicionando livros
     sucessos = 0
@@ -390,7 +395,7 @@ def main():
             sucessos+=1
         else:
             falhas+=1
-    print(f'{sucessos} livros adicionados com sucesso. {falhas} falhas.')
+    print(f'\n{sucessos} livros adicionados com sucesso. {falhas} falhas.')
 
     # Adicionando alunos
     sucessos = 0
@@ -402,7 +407,7 @@ def main():
             sucessos+=1
         else:
             falhas+=1
-    print(f'{sucessos} alunos adicionados com sucesso. {falhas} falhas.')
+    print(f'\n{sucessos} alunos adicionados com sucesso. {falhas} falhas.')
 
     # Adicionando professores
     sucessos = 0
@@ -414,7 +419,7 @@ def main():
             sucessos+=1
         else:
             falhas+=1
-    print(f'{sucessos} professores adicionados com sucesso. {falhas} falhas.')
+    print(f'\n{sucessos} professores adicionados com sucesso. {falhas} falhas.')
 
     # Adicionando funcionarios
     sucessos = 0
@@ -426,4 +431,4 @@ def main():
             sucessos+=1
         else:
             falhas+=1
-    print(f'{sucessos} funcionarios adicionados com sucesso. {falhas} falhas.')
+    print(f'\n{sucessos} funcionarios adicionados com sucesso. {falhas} falhas.')
