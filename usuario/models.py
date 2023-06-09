@@ -66,7 +66,7 @@ class Endereco(models.Model):
 
 # Model do usuário do tipo aluno
 class Aluno(models.Model):
-    usuario = models.OneToOneField(User, verbose_name='Usuario/Aluno', on_delete=models.CASCADE)
+    usuario = models.OneToOneField(User, verbose_name='Aluno', on_delete=models.CASCADE)
     imagem = models.ImageField(
         upload_to='img/aluno/%Y/%m/%d', 
         blank=True, 
@@ -95,7 +95,7 @@ class Aluno(models.Model):
     
 # Model do usuário do tipo Professor
 class Professor(models.Model):
-    usuario = models.OneToOneField(User, verbose_name='Usuario/Professor', on_delete=models.CASCADE)
+    usuario = models.OneToOneField(User, verbose_name='Professor', on_delete=models.CASCADE)
     imagem = models.ImageField(
         upload_to='img/professor/%Y/%m/%d', 
         blank=True, 
@@ -126,7 +126,7 @@ class Professor(models.Model):
 
 # Model do usuário do tipo 'Funcionário'
 class Funcionario(models.Model):
-    usuario = models.OneToOneField(User, verbose_name='Usuario/Funcionario', on_delete=models.CASCADE)
+    usuario = models.OneToOneField(User, verbose_name='Funcionario', on_delete=models.CASCADE)
     imagem = models.ImageField(
         upload_to='img/funcionario/%Y/%m/%d', 
         blank=True, 
