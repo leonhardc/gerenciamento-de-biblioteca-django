@@ -16,6 +16,18 @@ Apresento aqui a vocês um pequeno sistema de gerenciamento de uma biblioteca ac
 
 Mais adiante mostrarei como instalar o projeto, desde instalar as suas dependencias até executá-lo na sua máquina. Tentarei ser sucinto e ao mesmo tempo cobrir todos os pontos que achar fundamental quanto ao funcionamento do projeto e seus pequenos detalhes.
 
+## **A Estrututa do Projeto**
+
+Antes de apresentar a estrutura básica do projeto, para ser mais didático, explicarei a estrutura basica do framework utilizado para desenvolver esta aplicação, o Django. 
+
+A versão do Django utilizada aqui foi a 4.2, versão esta compativel com o Python 3.9. 
+
+Se você não é programador ou ainda está iniciando nos estudos de programação e não tem uma noção muito clara do que é um framework, do que é o django e como podemos trabalhar com ele, aqui vai uma leve introdução do que foi utilizado nesta aplicação e um pouco do que aprendi no meu tempo de estudo.
+
+Primeiramente iremos começar respondendo a seguinte pergunta: **O que é um framework?** Pois bem, se utilizarmos uma tradução direta das palavras da lingua inglesa que formam essa palavra teremos: Frame = moldura e work = trabalho. Ou seja, framework é uma ferramenta que te dá um molde de trabalho, uma serie de bibliotecas e facilidades que você possa usar para desenvolver sua aplicação, além disso te dá uma receita de bolo de como seguir uma estrutura de organização de diretórios e pacotes e como estes devem se relacionar entre si.
+
+O **Django** é um framework que funciona utilizando o padrão MVT (Model -> View -> Template). Onde os **Models** são classes que descrevem como serão as tabelas do seu banco de dados e os relacionamentos entre elas. As **Views** são funcões ou classes que controlarão diversas funcionalidades da aplicação, inclusive, como e quando os dados do banco de dados serão acessados e modificados. E, por ultimo mas não menos importante, os **Templates** são basicamente páginas HTML renderizadas que serão a porta de entrada do usuário com a aplicação, ou seja, os templates são o front-end da aplicação.
+
 
 ## **Referências**
 
