@@ -46,9 +46,21 @@ class Livro(models.Model):
 class Reserva(models.Model):
     usuario = models.CharField(max_length=50, verbose_name='Usuario')
     livro = models.CharField(max_length=50, verbose_name='livro')
+    isbn_livro = models.CharField(max_length=13, default='', verbose_name='ISBN')
     data_reserva = models.DateTimeField(default=timezone.now)
 
     class Meta:
         verbose_name = 'Reserva'
         verbose_name_plural = 'Reservas'
 
+# Model para emprestimos de livros
+class Emprestimo(models.Model):
+    usuario = models.CharField(max_length=50, verbose_name='Usuario')
+    livro = models.CharField(max_length=50, verbose_name='livro')
+    isbn_livro = models.CharField(max_length=13, default='',verbose_name='ISBN')
+    data_emprestimo = models.DateTimeField(default=timezone.now)
+    data_devolucao = models.DateTimeField()
+
+    class Meta:
+        verbose_name = 'Emprestimo'
+        verbose_name_plural = 'Emprestimos'
