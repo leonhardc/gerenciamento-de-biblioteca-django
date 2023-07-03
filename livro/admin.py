@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Livro, Categoria, Autor, Reserva
+from .models import Livro, Categoria, Autor, Reserva, Emprestimo
 
 class LivroAdmin(admin.ModelAdmin):
     list_display = [
@@ -30,7 +30,17 @@ class ReservaAdmin(admin.ModelAdmin):
         'data_reserva'
     ]
 
+class EmprestimoAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'usuario',
+        'livro',
+        'data_emprestimo',
+        'data_devolucao',
+    ]
+
 admin.site.register(Livro, LivroAdmin)
 admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Autor, AutorAdmin)
 admin.site.register(Reserva, ReservaAdmin)
+admin.site.register(Emprestimo, EmprestimoAdmin)
