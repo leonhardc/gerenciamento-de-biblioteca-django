@@ -61,3 +61,11 @@ def fazer_reserva(request):
 # TODO: Implementar view para excluir reserva
 def excluir_reserva(request):
     ...
+
+# TODO: Implementar view para adicionar um novo emprestimo no banco de dados
+def fazer_emprestimo(request):
+    ...
+
+# TODO: Implementar view para dar baixa em empestimo no banco de dados
+def excluir_emprestimo(request):
+    ...
