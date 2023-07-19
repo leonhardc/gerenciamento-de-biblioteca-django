@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TODO: mudar a linha abaico quando adicionar no django -->
+    <link rel="stylesheet" href="./../../templates/static/bootstrap/css/bootstrap.css"> 
+    <title>Cadastrar Curso</title>
+</head>
+<body>
+    <div class="container px-4">
+        <!-- Formulário de inserção de curso na base de dados -->
+        <h4 class="text-center mb-4">Cadastrar Curso</h4>
+        <form class="px-4" action="" method="POST">
+            <div class="row mb-2">
+
+                <div class="col">
+                    <label class="form-label" for="cod_curso">Código do Curso</label>
+                    <input required class="form-control" type="text" id="cod_curso" name="cod_curso" placeholder="Digite o código do Curso"> 
+                </div>
+
+                <div class="col-8">
+                    <label class="form-label" for="nome_curso">Nome do Curso</label>
+                    <input required class="form-control" type="text" id="nome_curso" name="nome_curso" placeholder="Digite o nome do curso">
+                </div>
+            </div>
+
+            <div class="w-100 d-flex justify-content-start">
+                <button class="btn btn-primary" type="submit">Adicionar Curso</button>
+            </div>
+        </form>
+        <script>
+            // Adicionar validação dos campos do formulário
+        </script>
+    </div>
+</body>
+</html>
