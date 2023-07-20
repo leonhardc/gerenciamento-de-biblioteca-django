@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../../templates/static/bootstrap/css/bootstrap.css"> 
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Formulario de inserção de aluno na base de dados -->
+        <h4 class="text-center mb-4">Inserir Aluno</h4>
+        <form action="" method="POST" class="px-4">
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="nome" class="form-label">Nome</label>            
+                    <input required type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do Aluno">
+                </div>                
+                <div class="col">
+                    <label for="sobrenome" class="form-label">Sobrenome</label>
+                    <input required type="text" id="sobrenome" name="sobrenome" class="form-control" placeholder="Digite o sobrenome do Aluno">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="mb-4">
+                        <label for="email" class="form-label">Email</label>
+                        <input required type="text" id="email" name="email" class="form-control" placeholder="Digite o email do Aluno">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <label for="ingresso" class="form-label">Data de Ingresso no Curso</label>
+                            <input required type="date" id="ingresso" name="ingresso" class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="conclusao" class="form-label">Data de Conclusão prevista</label>
+                            <input required type="date" id="conclusao" name="conclusao" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-4">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input required type="text" id="senha" name="senha" class="form-control" placeholder="Digite a senha do Aluno">
+                    </div>
+                    <div class="mb-4">
+                        <label for="senha-confirm" class="form-label">Confirmar Senha</label>
+                        <input required type="text" id="senha-confirm" name="senha-confirm" class="form-control" placeholder="Confirme a senha do Aluno">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col">
+                    <label for="imagem" class="form-label">Imagem de Perfil</label>
+                    <input type="file" id="imagem" name="imagem" class="form-control" accept="image/png, image/jpeg">
+                </div>
+                <div class="col">
+                    <label for="telefone" class="form-label">Telefone/Celular</label>
+                    <input required type="text" id="telefone" name="telefone" class="form-control">
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-primary">Adicionar Aluno</button>
+            </div>
+        </form>
+        <script>
+            // Inserir validação dos campos do formulário
+        </script>
+    </div>
+</body>
+</html>
