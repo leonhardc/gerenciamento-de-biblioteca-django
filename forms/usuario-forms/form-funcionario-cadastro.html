@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../../templates/static/bootstrap/css/bootstrap.css"> 
+    <title>Adicionar Funcionario</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Formulario de inserção de Funcionario na base de dados -->
+        <h4 class="text-center mb-4">Inserir Funcionario</h4>
+        <form action="" method="POST" class="px-4">
+            <div class="row mb-2">
+                <div class="col">
+                    <label for="nome" class="form-label">Nome</label>            
+                    <input required type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do Funcionario">
+                </div>                
+                <div class="col">
+                    <label for="sobrenome" class="form-label">Sobrenome</label>
+                    <input required type="text" id="sobrenome" name="sobrenome" class="form-control" placeholder="Digite o sobrenome do Funcionario">
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="mb-4">
+                        <label for="email" class="form-label">Email</label>
+                        <input required type="text" id="email" name="email" class="form-control" placeholder="Digite o email do Funcionario">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <label for="contratacao" class="form-label">Data de Contratação</label>
+                            <input required type="date" id="contratacao" name="contratacao" class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="telefone" class="form-label">Telefone/Celular</label>
+                            <input required type="text" id="telefone" name="telefone" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-4">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input required type="text" id="senha" name="senha" class="form-control" placeholder="Digite a senha do Funcionario">
+                    </div>
+                    <div class="mb-4">
+                        <label for="senha-confirm" class="form-label">Confirmar Senha</label>
+                        <input required type="text" id="senha-confirm" name="senha-confirm" class="form-control" placeholder="Confirme a senha do Funcionario">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col">
+                    <!-- Onde ficava o input da imagem de perfil -->
+                </div>
+                <div class="col ps-3">
+                    <input type="checkbox" id="admin" name="admin">
+                    <label for="admin" class="form-label">Administrador</label>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-primary">Adicionar Funcionario</button>
+            </div>
+        </form>
+        <script>
+            // Inserir validação dos campos do formulário
+        </script>
+    </div>
+</body>
+</html>
