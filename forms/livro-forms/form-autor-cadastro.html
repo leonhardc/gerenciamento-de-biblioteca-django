@@ -17,10 +17,12 @@
                 <div class="col">
                     <label class="form-label" for="nome">Nome</label>
                     <input required class="form-control" type="text" id="nome" name="nome" placeholder="Nome do Autor">
+                    <span id="erroNome" style="color: red; font-size: 12px;"></span>
                 </div>
                 <div class="col">
                     <label class="form-label" for="cpf">CPF</label>
-                    <input required class="form-control" type="text" id="cpf" name="cpf" placeholder="CPF do Autor">
+                    <input required class="form-control" type="text" id="cpf" name="cpf" placeholder="CPF do Autor" maxlength="11">
+                    <span id="erroCPF" style="color: red; font-size: 12px;"></span>
                 </div>
             </div>
 
@@ -28,17 +30,74 @@
                 <div class="col">
                     <label class="form-label" for="nacionalidade">Nacionalidade</label>
                     <input required class="form-control" type="text" id="nacionalidade" name="nacionalidade" placeholder="Nacionalidade do Autor">
+                    <span id="erroNacionalidade" style="color: red; font-size: 12px;"></span>
                 </div>
                 <div class="col"></div>
             </div>
 
             <div class="d-flex w-100 justify-content-center">
-                <button class="btn btn-primary mt-3" type="submit">Adicionar Autor</button>
+                <button class="btn btn-primary mt-3" type="submit" id="submit">Adicionar Autor</button>
             </div>
         </form>
 
         <script>
             // Adicionar validação de campos
+            var nome = document.querySelector('#nome')
+            var cpf = document.querySelector('#cpf')
+            var nacionalidade = document.querySelector('#nacionalidade')
+            const btnSubmit = document.querySelector("#submit")
+
+            btn.addEventListener("click", function(e) {
+                
+                e.preventDefault();
+                
+                // 1. Verificar se o nome não contem numeros ou caracteres especiais
+                var erroNome = document.querySelector("#erroNome")
+                if (/[@!#$%^&*()/\\0-9]/.test(nome.value)){
+                    erroNome.textContent = "O nome do autor não pode conter números ou caracteres especiais."
+                }
+                else {
+                    erroNome.textContent = ""
+                }
+
+                // 2. Verificar se o cpf tem o tamanho correto e não contem letras
+                var erroCPF = document.querySelector("#erroCPF")
+                if (isNaN(cpf.value)) {
+                    erroCPF.textContent = "O CPF não pode conter caracteres especiais."
+                }
+                else if (cpf.value.length != 11) {
+                    if (erroCPF.textContent != "") {
+                        erroCPF.textContent = "\nO CPF deve conter 11 caracteres."
+                    }
+                    else {
+                        erroCPF.textContent = "O CPF deve conter 11 caracteres."
+                    }
+                }
+                else {
+                    erroCPF.textContent = ""
+                }
+                // 3. Verificar se a nacionalidade não contem nenhum numero
+                var erroNacionalidade = document.querySelector("#erroNacionalidade")
+                if (/[@!#$%^&*()/\\0-9]/.test(nacionalidade.value)){
+                    erroNacionalidade.textContent = "O nome do autor não pode conter números ou caracteres especiais."
+                }
+                else {
+                    erroNacionalidade.textContent = ""
+                }
+                
+                // Verificar se todos os campos estão corretos
+                if (erroNome.textContent == "" || erroCPF.textContent == "" || erroNacionalidade == "") {
+                    return true
+                }
+                else {
+                    return false
+                }
+            });
+
+            function validar(e) {
+                
+            }
+
         </script>
     </div>
 </body>
