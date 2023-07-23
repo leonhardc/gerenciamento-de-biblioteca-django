@@ -16,12 +16,12 @@
             <div class="row mb-2">
                 <div class="col">
                     <label class="form-label" for="nome">Nome</label>
-                    <input onchange="validarNome()" required class="form-control" type="text" id="nome" name="nome" placeholder="Nome do Autor">
+                    <input required class="form-control" type="text" id="nome" name="nome" placeholder="Nome do Autor">
                     <span id="erroNome" style="color: red; font-size: 12px;"></span>
                 </div>
                 <div class="col">
                     <label class="form-label" for="cpf">CPF</label>
-                    <input onchange="validarCPF()" required class="form-control" type="text" id="cpf" name="cpf" placeholder="CPF do Autor" maxlength="11">
+                    <input required class="form-control" type="text" id="cpf" name="cpf" placeholder="CPF do Autor" maxlength="11">
                     <span id="erroCPF" style="color: red; font-size: 12px;"></span>
                 </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="row mb-2">
                 <div class="col">
                     <label class="form-label" for="nacionalidade">Nacionalidade</label>
-                    <input onchange="validadeNacionalidade()" required class="form-control" type="text" id="nacionalidade" name="nacionalidade" placeholder="Nacionalidade do Autor">
+                    <input required class="form-control" type="text" id="nacionalidade" name="nacionalidade" placeholder="Nacionalidade do Autor">
                     <span id="erroNacionalidade" style="color: red; font-size: 12px;"></span>
                 </div>
                 <div class="col"></div>
@@ -107,6 +107,10 @@
                     submitButton.disabled = false
                 }
             }
+
+            document.querySelector('#nome').addEventListener('keyup', validarNome)
+            document.querySelector('#cpf').addEventListener('keyup', validarCPF)
+            document.querySelector('#nacionalidade').addEventListener('keyup', validadeNacionalidade)
 
         </script>
     </div>
