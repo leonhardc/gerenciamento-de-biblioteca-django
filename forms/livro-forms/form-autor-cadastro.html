@@ -6,6 +6,12 @@
     <!-- TODO: mudar a linha abaico quando adicionar no django -->
     <link rel="stylesheet" href="./../../templates/static/bootstrap/css/bootstrap.css"> 
     <title>Cadastrar Autor</title>
+    <style>
+        .error {
+            color: red; 
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
     <div class="container my-2">
@@ -17,12 +23,12 @@
                 <div class="col">
                     <label class="form-label" for="nome">Nome</label>
                     <input required class="form-control" type="text" id="nome" name="nome" placeholder="Nome do Autor">
-                    <span id="erroNome" style="color: red; font-size: 12px;"></span>
+                    <span id="erroNome" class="error"></span>
                 </div>
                 <div class="col">
                     <label class="form-label" for="cpf">CPF</label>
                     <input required class="form-control" type="text" id="cpf" name="cpf" placeholder="CPF do Autor" maxlength="11">
-                    <span id="erroCPF" style="color: red; font-size: 12px;"></span>
+                    <span id="erroCPF" class="error"></span>
                 </div>
             </div>
 
@@ -30,7 +36,7 @@
                 <div class="col">
                     <label class="form-label" for="nacionalidade">Nacionalidade</label>
                     <input required class="form-control" type="text" id="nacionalidade" name="nacionalidade" placeholder="Nacionalidade do Autor">
-                    <span id="erroNacionalidade" style="color: red; font-size: 12px;"></span>
+                    <span id="erroNacionalidade" class="error"></span>
                 </div>
                 <div class="col"></div>
             </div>
