@@ -20,12 +20,12 @@
         <form class="px-4" action="" method="POST">
             <div class="row mb-2">
                 <div class="col">
-                    <label class="form-label" for="cod_categoria">Código da Categoria</label>
+                    <label class="form-label" for="cod_categoria" id="lableCodCategoria">Código da Categoria</label>
                     <input required class="form-control" type="text" name="cod_categoria" id="cod_categoria" placeholder="Digite o código da categoria">
                     <span id="erroCod" class="error"></span>
                 </div>
                 <div class="col">
-                    <label class="form-label" for="nome_categoria">Nome da Categoria</label>
+                    <label class="form-label" for="nome_categoria" id="labelNome">Nome da Categoria</label>
                     <input required class="form-control" type="text" name="nome_categoria" id="nome_categoria" placeholder="Digite o nome da categoria">
                     <span id="erroNome" class="error"></span>
                 </div>
@@ -49,14 +49,17 @@
             function validarCodigo() {
                 var codCategoria = document.querySelector('#cod_categoria')
                 var erroCod = document.querySelector("#erroCod")
+                var labelCod = document.querySelector("#lableCodCategoria")
                 console.log(codCategoria.value)
                 if (isNaN(codCategoria.value)) {
                     codCategoria.style.borderColor = "red"
+                    labelCod.style.color = "red"
                     erroCod.textContent = "O código da categoria não pode conter letras ou caracteres especiais"
                     buttomSubmit.disabled = true
                 }
                 else {
                     erroCod.textContent = ""
+                    labelCod.style.color = "black"
                     codCategoria.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
                     buttomSubmit.disabled = false
                 }
@@ -65,12 +68,15 @@
             function validarNome() {
                 var nomeCategoria = document.querySelector("#nome_categoria")
                 var erroNome = document.querySelector("#erroNome")
+                var labelNome = document.querySelector("#labelNome")
                 if (/[@!#$%^&*()/\\0-9]/.test(nomeCategoria.value)){
+                    labelNome.style.color = "red"
                     nomeCategoria.style.borderColor = "red"
                     erroNome.textContent = "O nome da categoria não pode conter números ou caracteres especiais."
                     buttomSubmit.disabled = true
                 }
                 else {
+                    labelNome.style.color = "black"
                     nomeCategoria.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
                     erroNome.textContent = ""
                     buttomSubmit.disabled = false

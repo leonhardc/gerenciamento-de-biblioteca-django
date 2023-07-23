@@ -21,12 +21,12 @@
             
             <div class="row mb-2">
                 <div class="col">
-                    <label class="form-label" for="nome">Nome</label>
+                    <label class="form-label" for="nome" id="labelNome">Nome</label>
                     <input required class="form-control" type="text" id="nome" name="nome" placeholder="Nome do Autor">
                     <span id="erroNome" class="error"></span>
                 </div>
                 <div class="col">
-                    <label class="form-label" for="cpf">CPF</label>
+                    <label class="form-label" for="cpf" id="labelCPF">CPF</label>
                     <input required class="form-control" type="text" id="cpf" name="cpf" placeholder="CPF do Autor" maxlength="11">
                     <span id="erroCPF" class="error"></span>
                 </div>
@@ -34,7 +34,7 @@
 
             <div class="row mb-2">
                 <div class="col">
-                    <label class="form-label" for="nacionalidade">Nacionalidade</label>
+                    <label class="form-label" for="nacionalidade" id="labelNacionalidade">Nacionalidade</label>
                     <input required class="form-control" type="text" id="nacionalidade" name="nacionalidade" placeholder="Nacionalidade do Autor">
                     <span id="erroNacionalidade" class="error"></span>
                 </div>
@@ -55,12 +55,15 @@
                 // Verifica se o nome não contém números ou caracteres especiais
                 const nome = document.querySelector('#nome')
                 var erroNome = document.querySelector("#erroNome")
+                var labelNome = document.querySelector("#labelNome")
                 if (/[@!#$%^&*()/\\0-9]/.test(nome.value)){
+                    labelNome.style.color = "red"
                     nome.style.borderColor = "red"
                     erroNome.textContent = "O nome do autor não pode conter números ou caracteres especiais."
                     submitButton.disabled = true
                 }
                 else {
+                    labelNome.style.color = "black"
                     nome.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
                     erroNome.textContent = ""
                     submitButton.disabled = false
@@ -72,42 +75,48 @@
                 // Verifica se o CPF tem 11 caracteres
                 const cpf = document.querySelector('#cpf')
                 var erroCPF = document.querySelector("#erroCPF")
-
+                var labelCPF = document.querySelector("#labelCPF")
                 if (isNaN(cpf.value)) {
+                    labelCPF.style.color = "red"
                     nome.style.borderColor = "red"
                     erroCPF.textContent = "O CPF não pode conter letras ou caracteres especiais."
                     submitButton.disabled = true
                 }
                 else if (cpf.value.length != 11) {
                     if (erroCPF.textContent != "") {
+                        labelCPF.style.color = "red"
                         cpf.style.borderColor = "red"
                         erroCPF.textContent = "\nO CPF deve conter 11 caracteres."
                         submitButton.disabled = true
                     }
                     else {
+                        labelCPF.style.color = "red"
                         cpf.style.borderColor = "red"
                         erroCPF.textContent = "O CPF deve conter 11 caracteres."
                         submitButton.disabled = true
                     }
                 }
                 else {
+                    labelCPF.style.color = "black"
                     cpf.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
                     erroCPF.textContent = ""
                     submitButton.disabled = false
                 }
             }
 
-            function validadeNacionalidade() {
+            function validarNacionalidade() {
                 // Verifica se o campo nacionalidade contém numeros ou caracteres especiais
                 var nacionalidade = document.querySelector('#nacionalidade')
-
+                var labelNacionalidade = document.querySelector("#labelNacionalidade")
                 var erroNacionalidade = document.querySelector("#erroNacionalidade")
                 if (/[@!#$%^&*()/\\0-9]/.test(nacionalidade.value)){
+                    labelNacionalidade.style.color = "red"
                     nacionalidade.style.borderColor = "red"
                     erroNacionalidade.textContent = "A nacionalidade não pode conter números ou caracteres especiais."
                     submitButton.disabled = true
                 }
                 else {
+                    labelNacionalidade.style.color = "black"
                     nacionalidade.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
                     erroNacionalidade.textContent = ""
                     submitButton.disabled = false
@@ -116,7 +125,7 @@
 
             document.querySelector('#nome').addEventListener('keyup', validarNome)
             document.querySelector('#cpf').addEventListener('keyup', validarCPF)
-            document.querySelector('#nacionalidade').addEventListener('keyup', validadeNacionalidade)
+            document.querySelector('#nacionalidade').addEventListener('keyup', validarNacionalidade)
 
         </script>
     </div>
