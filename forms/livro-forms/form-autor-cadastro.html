@@ -11,17 +11,17 @@
     <div class="container my-2">
         <!-- Formulário para adicionar Autor na base de dados -->
         <h4 class="text-center mb-4">Adicionar Autor</h4>
-        <form class="px-4" action="" method="POST">
+        <form id="form" class="px-4" action="" method="POST">
             
             <div class="row mb-2">
                 <div class="col">
                     <label class="form-label" for="nome">Nome</label>
-                    <input required class="form-control" type="text" id="nome" name="nome" placeholder="Nome do Autor">
+                    <input onchange="validarNome()" required class="form-control" type="text" id="nome" name="nome" placeholder="Nome do Autor">
                     <span id="erroNome" style="color: red; font-size: 12px;"></span>
                 </div>
                 <div class="col">
                     <label class="form-label" for="cpf">CPF</label>
-                    <input required class="form-control" type="text" id="cpf" name="cpf" placeholder="CPF do Autor" maxlength="11">
+                    <input onchange="validarCPF()" required class="form-control" type="text" id="cpf" name="cpf" placeholder="CPF do Autor" maxlength="11">
                     <span id="erroCPF" style="color: red; font-size: 12px;"></span>
                 </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="row mb-2">
                 <div class="col">
                     <label class="form-label" for="nacionalidade">Nacionalidade</label>
-                    <input required class="form-control" type="text" id="nacionalidade" name="nacionalidade" placeholder="Nacionalidade do Autor">
+                    <input onchange="validadeNacionalidade()" required class="form-control" type="text" id="nacionalidade" name="nacionalidade" placeholder="Nacionalidade do Autor">
                     <span id="erroNacionalidade" style="color: red; font-size: 12px;"></span>
                 </div>
                 <div class="col"></div>
@@ -41,61 +41,71 @@
         </form>
 
         <script>
-            // Adicionar validação de campos
-            var nome = document.querySelector('#nome')
-            var cpf = document.querySelector('#cpf')
-            var nacionalidade = document.querySelector('#nacionalidade')
-            const btnSubmit = document.querySelector("#submit")
+            // Validar campos do formulario
 
-            btn.addEventListener("click", function(e) {
-                
-                e.preventDefault();
-                
-                // 1. Verificar se o nome não contem numeros ou caracteres especiais
+            var submitButton = document.querySelector("#submit")
+
+            function validarNome() {
+                // Verifica se o nome não contém números ou caracteres especiais
+                const nome = document.querySelector('#nome')
                 var erroNome = document.querySelector("#erroNome")
                 if (/[@!#$%^&*()/\\0-9]/.test(nome.value)){
+                    nome.style.borderColor = "red"
                     erroNome.textContent = "O nome do autor não pode conter números ou caracteres especiais."
+                    submitButton.disabled = true
                 }
                 else {
+                    nome.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
                     erroNome.textContent = ""
+                    submitButton.disabled = false
                 }
+            }
 
-                // 2. Verificar se o cpf tem o tamanho correto e não contem letras
+            function validarCPF() {
+                // Verifica se ha letras ou caracteres especiais no CPF.
+                // Verifica se o CPF tem 11 caracteres
+                const cpf = document.querySelector('#cpf')
                 var erroCPF = document.querySelector("#erroCPF")
+
                 if (isNaN(cpf.value)) {
-                    erroCPF.textContent = "O CPF não pode conter caracteres especiais."
+                    nome.style.borderColor = "red"
+                    erroCPF.textContent = "O CPF não pode conter letras ou caracteres especiais."
+                    submitButton.disabled = true
                 }
                 else if (cpf.value.length != 11) {
                     if (erroCPF.textContent != "") {
+                        cpf.style.borderColor = "red"
                         erroCPF.textContent = "\nO CPF deve conter 11 caracteres."
+                        submitButton.disabled = true
                     }
                     else {
+                        cpf.style.borderColor = "red"
                         erroCPF.textContent = "O CPF deve conter 11 caracteres."
+                        submitButton.disabled = true
                     }
                 }
                 else {
+                    cpf.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
                     erroCPF.textContent = ""
+                    submitButton.disabled = false
                 }
-                // 3. Verificar se a nacionalidade não contem nenhum numero
+            }
+
+            function validadeNacionalidade() {
+                // Verifica se o campo nacionalidade contém numeros ou caracteres especiais
+                var nacionalidade = document.querySelector('#nacionalidade')
+
                 var erroNacionalidade = document.querySelector("#erroNacionalidade")
                 if (/[@!#$%^&*()/\\0-9]/.test(nacionalidade.value)){
-                    erroNacionalidade.textContent = "O nome do autor não pode conter números ou caracteres especiais."
+                    nacionalidade.style.borderColor = "red"
+                    erroNacionalidade.textContent = "A nacionalidade não pode conter números ou caracteres especiais."
+                    submitButton.disabled = true
                 }
                 else {
+                    nacionalidade.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
                     erroNacionalidade.textContent = ""
+                    submitButton.disabled = false
                 }
-                
-                // Verificar se todos os campos estão corretos
-                if (erroNome.textContent == "" || erroCPF.textContent == "" || erroNacionalidade == "") {
-                    return true
-                }
-                else {
-                    return false
-                }
-            });
-
-            function validar(e) {
-                
             }
 
         </script>
