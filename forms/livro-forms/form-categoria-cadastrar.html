@@ -6,6 +6,12 @@
     <!-- TODO: mudar a linha abaico quando adicionar no django -->
     <link rel="stylesheet" href="./../../templates/static/bootstrap/css/bootstrap.css">
     <title>Adicionar Categoria</title>
+    <style>
+        .error {
+            color: red; 
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -16,10 +22,12 @@
                 <div class="col">
                     <label class="form-label" for="cod_categoria">Código da Categoria</label>
                     <input required class="form-control" type="text" name="cod_categoria" id="cod_categoria" placeholder="Digite o código da categoria">
+                    <span id="erroCod" class="error"></span>
                 </div>
                 <div class="col">
                     <label class="form-label" for="nome_categoria">Nome da Categoria</label>
                     <input required class="form-control" type="text" name="nome_categoria" id="nome_categoria" placeholder="Digite o nome da categoria">
+                    <span id="erroNome" class="error"></span>
                 </div>
             </div>
             <div class="row mb-2">
@@ -31,11 +39,47 @@
             </div>
 
             <div class="d-flex w-100 justify-content-center">
-                <button class="btn btn-primary mt-3" type="submit">Adicionar Categoria</button>
+                <button class="btn btn-primary mt-3" type="submit" id="submit">Adicionar Categoria</button>
             </div>
         </form>
         <script>
-            // Adicionar validação de campos do formulario
+            // Validação dos campos do formulário
+            var buttomSubmit = document.querySelector('#submit')
+    
+            function validarCodigo() {
+                var codCategoria = document.querySelector('#cod_categoria')
+                var erroCod = document.querySelector("#erroCod")
+                console.log(codCategoria.value)
+                if (isNaN(codCategoria.value)) {
+                    codCategoria.style.borderColor = "red"
+                    erroCod.textContent = "O código da categoria não pode conter letras ou caracteres especiais"
+                    buttomSubmit.disabled = true
+                }
+                else {
+                    erroCod.textContent = ""
+                    codCategoria.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                    buttomSubmit.disabled = false
+                }
+            }
+
+            function validarNome() {
+                var nomeCategoria = document.querySelector("#nome_categoria")
+                var erroNome = document.querySelector("#erroNome")
+                if (/[@!#$%^&*()/\\0-9]/.test(nomeCategoria.value)){
+                    nomeCategoria.style.borderColor = "red"
+                    erroNome.textContent = "O nome da categoria não pode conter números ou caracteres especiais."
+                    buttomSubmit.disabled = true
+                }
+                else {
+                    nomeCategoria.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                    erroNome.textContent = ""
+                    buttomSubmit.disabled = false
+                }
+            }
+    
+            document.querySelector("#cod_categoria").addEventListener("keyup", validarCodigo)
+            document.querySelector("#nome_categoria").addEventListener("keyup", validarNome)
+    
         </script>
     </div>
 </body>
