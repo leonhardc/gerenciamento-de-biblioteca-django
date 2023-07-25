@@ -6,6 +6,12 @@
     <!-- TODO: mudar a linha abaico quando adicionar no django -->
     <link rel="stylesheet" href="./../../templates/static/bootstrap/css/bootstrap.css">
     <title>Cadastrar Livro</title>
+    <style>
+        .error {
+            color: red; 
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
     <div class="container my-2">
@@ -14,22 +20,26 @@
         <form class="px-4" action="" method="POST">
             <div class="row mt-2">
                 <div class="col">
-                    <label class="form-label" for="isbn">ISBN</label>
+                    <label class="form-label" for="isbn" id="labelISBN">ISBN</label>
                     <input required class="form-control" name="isbn" id="isbn" type="text" maxlength="13" placeholder="ISBN do Livro">
+                    <span id="isbnError" class="error"></span>
                 </div>
                 <div class="col">
-                    <label class="form-label" for="titulo">Titulo</label>
+                    <label class="form-label" for="titulo" id="labelTitulo">Titulo</label>
                     <input required class="form-control" name="titulo" id="titulo" type="text" maxlength="200" placeholder="Titulo do Livro">
+                    <span id="tituloError" class="error"></span>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col">
-                    <label class="form-label" for="ano_lancamento">Ano de Lançamento</label>
-                    <input required class="form-control" name="ano_lancamento" type="text" maxlength="4" placeholder="Ano de Lançamento do Livro">
+                    <label class="form-label" for="ano_lancamento" id="anoLancamentoLabel">Ano de Lançamento</label>
+                    <input required class="form-control" name="ano_lancamento" id="ano_lancamento" type="text" maxlength="4" placeholder="Ano de Lançamento do Livro">
+                    <span class="error" id="anoLancamentoError"></span>
                 </div>
                 <div class="col">
-                    <label class="form-label" for="qt_copias">Quantidade de cópias</label>
+                    <label class="form-label" for="qt_copias" id="labelCopias">Quantidade de cópias</label>
                     <input required class="form-control" name="qt_copias" type="number" min="0" placeholder="Quantidade de cópias">
+                    <span class="error" id="copiasError"></span>
                 </div>
             </div>
             
@@ -49,13 +59,118 @@
             </div>
             
             <div class="d-flex w-100 justify-content-center">
-                <button class="btn btn-primary mt-3" type="submit">Adicionar Livro</button>
+                <button class="btn btn-primary mt-3" type="submit" id="submit">Adicionar Livro</button>
             </div>
             
         </form>
         
         <script>
-            // Adicionar validação de campos
+            // Validação dos campos do formulário
+            var submitButton = document.querySelector("#submit")
+            function validarISBN() {
+                // Valida input isbn
+                var isbn = document.querySelector("#isbn")
+                var spanError = document.querySelector("#isbnError")
+                var labelISBN = document.querySelector("#labelISBN")
+                if(isNaN(isbn.value)) {
+                    labelISBN.style.color = "red"
+                    isbn.style.borderColor = "red"
+                    submitButton.disabled = true
+                    spanError.textContent = "O ISBN do livro não poder conter letras ou caracteres especiais."
+                }
+                else {
+                    if (isbn.value.length != 13) {
+                        labelISBN.style.color = "red"
+                        isbn.style.borderColor = "red"
+                        submitButton.disabled = true
+                        spanError.textContent = "O ISBN deve ter 13 caracteres."
+                    }
+                    else {
+                        labelISBN.style.color = "black"
+                        isbn.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                        submitButton.disabled = false
+                        spanError.textContent = ""
+                    }
+                }
+            }
+
+            function validarTitulo() {
+                // Valida input titulo
+                var labelTitulo = document.querySelector("#labelTitulo")
+                var titulo = document.querySelector("#titulo")
+                var tituloError = document.querySelector("#tituloError")
+
+                if (/[@!#$%^&*()/\\0-9]/.test(titulo.value)) {
+                    labelTitulo.style.color = "red"
+                    titulo.style.borderColor = "red"
+                    submitButton.disabled = true
+                    tituloError.textContent = "O Titulo não pode conter numeros ou caracteres especiais."
+                }
+                else{
+                    labelTitulo.style.color = "black"
+                    titulo.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                    submitButton.disabled = false
+                    tituloError.textContent = ""
+                }
+
+                
+            }
+            
+            function validarAnoLancamento() {
+                var anoLancamento = document.querySelector("#ano_lancamento")
+                var anoLancamentoError = document.querySelector("#anoLancamentoError")
+                var anoLancamentoLabel = document.querySelector("#anoLancamentoLabel")
+                var date = new Date()
+                var anoAtual = date.getFullYear()
+
+                if (isNaN(anoLancamento.value)) {
+                    anoLancamentoError.textContent = "O Ano de lançamento não pode conter letras ou caracteres especiais"
+                    anoLancamentoLabel.style.color = "red"
+                    anoLancamento.style.borderColor = "red"
+                    submitButton.disabled = true
+                }
+                else if (anoAtual < Number(anoLancamento.value)){
+                    anoLancamentoError.textContent = "O ano digitado é maior que o ano atual."
+                    anoLancamentoLabel.style.color = "red"
+                    anoLancamento.style.borderColor = "red"
+                    submitButton.disabled = true
+                }
+                else if (Number(anoLancamento.value) == 0){
+                    anoLancamentoError.textContent = "Digite um ano válido."
+                    anoLancamentoLabel.style.color = "red"
+                    anoLancamento.style.borderColor = "red"
+                    submitButton.disabled = true
+                }
+                else {
+                    anoLancamentoError.textContent = ""
+                    anoLancamentoLabel.style.color = "black"
+                    anoLancamento.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                    submitButton.disabled = false
+                }
+            }
+            
+            function validarQuantidadeCopias() {
+                var labelCopias = document.querySelector("#labelCopias")
+                var copias = document.querySelector("#qt_copias")
+                var copiasError = document.querySelector("#copiasError")
+
+                if (Number(copias.value) < 0) {
+                    labelCopias.style.color = "red"
+                    copias.style.borderColor = "red"
+                    submitButton.disabled = true
+                    copiasError.textContent = "O numero de cópias não pode ser negativo."
+                }
+                else {
+                    labelCopias.style.color = "black"
+                    copias.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                    submitButton.disabled = false
+                    copiasError.textContent = "O numero de cópias não pode ser negativo."
+                }
+            }
+            document.querySelector("#titulo").addEventListener("keyup", validarTitulo)
+            document.querySelector("#isbn").addEventListener("keyup", validarISBN)
+            document.querySelector("#ano_lancamento").addEventListener("keyup", validarAnoLancamento)
+            document.querySelector("#qt_copias").addEventListener("keyup", validarQuantidadeCopias)
         </script>
     </div>
 </body>
