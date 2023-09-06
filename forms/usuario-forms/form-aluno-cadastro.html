@@ -32,29 +32,34 @@
             <div class="row mb-2">
                 <div class="col">
                     <div class="mb-4">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label" id="label-email">Email</label>
                         <input required type="text" id="email" name="email" class="form-control" placeholder="Digite o email do Aluno">
+                        <span class="error" id="span-error-email"></span>
                     </div>
                     
                     <div class="row">
                         <div class="col">
-                            <label for="ingresso" class="form-label">Data de Ingresso no Curso</label>
-                            <input required type="date" id="ingresso" name="ingresso" class="form-control">
+                            <label for="ingresso" class="form-label" id="label-data-ingresso">Data de Ingresso no Curso</label>
+                            <input required type="date" id="ingresso" name="data-ingresso" class="form-control">
+                            <span class="error" id="span-error-data-ingresso"></span>
                         </div>
                         <div class="col">
-                            <label for="conclusao" class="form-label">Data de Conclusão prevista</label>
-                            <input required type="date" id="conclusao" name="conclusao" class="form-control">
+                            <label for="conclusao" class="form-label" id="label-data-conclusão">Data de Conclusão prevista</label>
+                            <input required type="date" id="conclusao" name="data-conclusao" class="form-control">
+                            <span class="error" id="span-error-data-conclusao"></span>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="mb-4">
-                        <label for="senha" class="form-label">Senha</label>
+                        <label for="senha" class="form-label" id="label-senha">Senha</label>
                         <input required type="text" id="senha" name="senha" class="form-control" placeholder="Digite a senha do Aluno">
+                        <span class="error" id="span-error-senha"></span>
                     </div>
                     <div class="mb-4">
-                        <label for="senha-confirm" class="form-label">Confirmar Senha</label>
+                        <label for="senha-confirm" class="form-label" id="label-senha-confirm">Confirmar Senha</label>
                         <input required type="text" id="senha-confirm" name="senha-confirm" class="form-control" placeholder="Confirme a senha do Aluno">
+                        <span class="error" id="span-error-senha-confirm"></span>
                     </div>
                 </div>
             </div>
@@ -65,8 +70,9 @@
                     <input type="file" id="imagem" name="imagem" class="form-control" accept="image/png, image/jpeg">
                 </div>
                 <div class="col">
-                    <label for="telefone" class="form-label">Telefone/Celular</label>
+                    <label for="telefone" class="form-label" id="label-telefone">Telefone/Celular</label>
                     <input required type="text" id="telefone" name="telefone" class="form-control">
+                    <span class="error" id="span-error-telefone"></span>
                 </div>
             </div>
 
@@ -98,7 +104,7 @@
             }
 
             function validarSobrenome(){
-                const sobrenome = document.querySelector('#sobrenome')
+                var sobrenome = document.querySelector('#sobrenome')
                 var erroSobrenome = document.querySelector("#span-error-sobrenome")
                 var labelSobrenome = document.querySelector("#label-sobrenome")
                 if (/[@!#$%^&*()/\\0-9]/.test(sobrenome.value)){
@@ -117,14 +123,55 @@
                 }
             }
 
-            function validarEmail(){}
+            function validarEmail(){
+                var email = document.querySelector("#email")
+                var labelEmail = document.querySelector("#label-email")
+                var erroEmail = document.querySelector("#span")
+            }
 
-            function validarSenha(){}
+            function validarSenha(){
+                // campo de senha
+                var senha = document.querySelector("#senha")
+                var labelSenha = document.querySelector("#label-senha")]
+                var erroSenha = document.querySelector("#span-error-senha")
+                // campo de confirmação de senha
+                var senhaConfirm = document.querySelector("#senha-confirm")
+                var labelSenhaConfirm = document.querySelector("#label-senha-confirm")
+                var erroSenhaConfirm = document.querySelector("#span-error-senha-confirm")
+
+                // validação
+                if (senha.value.length == 0){
+                    submitButton.disabled = true
+                    senha.style.color = "red"
+                    senha.style.borderColor = "red"
+                    labelSenha.stule.color = "red"
+                    erroSenha.textContent = "\nO campo de senha não pode ser vazio."
+                }
+                if (senhaConfirm.value.length == 0){
+                    submitButton.disabled = true
+                    senhaConfirm.style.color = "red"
+                    senhaConfirm.style.borderColor = "red"
+                    labelSenhaConfirm.stule.color = "red"
+                    erroSenhaConfirm.textContent = "\nO campo de confirmação de senha não pode ser vazio."
+                }
+                if (senha.value !== senhaConfirm.value) {
+                    submitButton.disabled = true
+                    senha.style.color = "red"
+                    senha.style.borderColor = "red"
+                    labelSenha.stule.color = "red"
+                    senhaConfirm.style.color = "red"
+                    senhaConfirm.style.borderColor = "red"
+                    labelSenhaConfirm.stule.color = "red"
+                    erroSenhaConfirm.textContent = "\nAs duas senhas digitadas não são iguais."
+                }
+
+            }
 
             function validarData(){}
 
             document.querySelector("#nome").addEventListener("keyup", validarNome)
             document.querySelector("#sobrenome").addEventListener("keyup", validarSobrenome)
+            document.querySelector("#senha-confirm").addEventListener("blur", validarSenha)
         </script>
     </div>
 </body>
