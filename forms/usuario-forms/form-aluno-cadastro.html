@@ -19,12 +19,12 @@
         <form action="" method="POST" class="px-4">
             <div class="row mb-2">
                 <div class="col">
-                    <label for="nome" class="form-label" id="label-nome">Nome</label>            
+                    <label for="nome" class="form-label font-weight-bold" id="label-nome">Nome</label>            
                     <input required type="text" id="nome" name="nome" class="form-control" placeholder="Digite o nome do Aluno">
                     <span class="error" id="span-error-nome"></span>
                 </div>                
                 <div class="col">
-                    <label for="sobrenome" class="form-label" id="label-sobrenome">Sobrenome</label>
+                    <label for="sobrenome" class="form-label font-weight-bold" id="label-sobrenome">Sobrenome</label>
                     <input required type="text" id="sobrenome" name="sobrenome" class="form-control" placeholder="Digite o sobrenome do Aluno">
                     <span class="error" id="span-error-sobrenome"></span>
                 </div>
@@ -32,7 +32,7 @@
             <div class="row mb-2">
                 <div class="col">
                     <div class="mb-4">
-                        <label for="email" class="form-label" id="label-email">Email</label>
+                        <label for="email" class="form-label font-weight-bold" id="label-email">Email</label>
                         <input required type="text" id="email" name="email" class="form-control" placeholder="Digite o email do Aluno">
                         <span class="error" id="span-error-email"></span>
                     </div>
@@ -53,12 +53,12 @@
                 <div class="col">
                     <div class="mb-4">
                         <label for="senha" class="form-label" id="label-senha">Senha</label>
-                        <input required type="text" id="senha" name="senha" class="form-control" placeholder="Digite a senha do Aluno">
+                        <input required type="password" id="senha" name="senha" class="form-control" placeholder="Digite a senha do Aluno">
                         <span class="error" id="span-error-senha"></span>
                     </div>
                     <div class="mb-4">
                         <label for="senha-confirm" class="form-label" id="label-senha-confirm">Confirmar Senha</label>
-                        <input required type="text" id="senha-confirm" name="senha-confirm" class="form-control" placeholder="Confirme a senha do Aluno">
+                        <input required type="password" id="senha-confirm" name="senha-confirm" class="form-control" placeholder="Confirme a senha do Aluno">
                         <span class="error" id="span-error-senha-confirm"></span>
                     </div>
                 </div>
@@ -83,6 +83,7 @@
         <script>
             // Inserir validação dos campos do formulário
             var submitButton = document.querySelector("#submit")
+            // Validação do campo de nome
             function validarNome(){
                 const nome = document.querySelector('#nome')
                 var erroNome = document.querySelector("#span-error-nome")
@@ -103,6 +104,7 @@
                 }
             }
 
+            // Validação do campo de sobrenome
             function validarSobrenome(){
                 var sobrenome = document.querySelector('#sobrenome')
                 var erroSobrenome = document.querySelector("#span-error-sobrenome")
@@ -123,55 +125,75 @@
                 }
             }
 
+            // Validação do campo de email
             function validarEmail(){
                 var email = document.querySelector("#email")
                 var labelEmail = document.querySelector("#label-email")
                 var erroEmail = document.querySelector("#span")
             }
 
+            // Validação do campo de senha
             function validarSenha(){
-                // campo de senha
+                // Validar senha
+                // 1. DEVE CONTER NO MINIMO 8 CARACTERES
+                // 2. DEVE CONTER PELO MENOS UM NUMERO
+                // 3. DEVE CONTER PELO MENOS UMA LETRA MAIUSCULA
                 var senha = document.querySelector("#senha")
-                var labelSenha = document.querySelector("#label-senha")]
+                var labelSenha = document.querySelector("#label-senha")
                 var erroSenha = document.querySelector("#span-error-senha")
+                var msnError = ""               
+
+                // validação
+                if (senha.value.length < 8){
+                    msnError += "\nO Campo de senha deve conter no minimo 8 caracteres."
+                    senha.style.borderColor = "red"
+                    labelSenha.style.color = "red"
+                }
+                else if (!(/[0-9]/.test(senha.value))){
+                    msnError += "\nO Campo de senha deve conter pelo menos um numero."
+                    senha.style.borderColor = "red"
+                    labelSenha.style.color = "red"
+                }
+                else if (!(/[A-Z]/.test(senha.value))) {
+                    msnError += "\nO Campo de senha deve conter pelo menos uma letra maiuscula."
+                    senha.style.borderColor = "red"
+                    labelSenha.style.color = "red"
+                }
+                else {
+                    msnError = ""
+                    senha.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                    labelSenha.style.color = "black"
+                }
+
+                erroSenha.textContent = msnError               
+
+            }
+
+            function validarSenhaConfirm() {
                 // campo de confirmação de senha
                 var senhaConfirm = document.querySelector("#senha-confirm")
+                var senha = document.querySelector("#senha")
                 var labelSenhaConfirm = document.querySelector("#label-senha-confirm")
                 var erroSenhaConfirm = document.querySelector("#span-error-senha-confirm")
 
-                // validação
-                if (senha.value.length == 0){
-                    submitButton.disabled = true
-                    senha.style.color = "red"
-                    senha.style.borderColor = "red"
-                    labelSenha.stule.color = "red"
-                    erroSenha.textContent = "\nO campo de senha não pode ser vazio."
-                }
-                if (senhaConfirm.value.length == 0){
-                    submitButton.disabled = true
-                    senhaConfirm.style.color = "red"
+                if (senhaConfirm.value !== senha.value) {
+                    erroSenhaConfirm.textContent = "\nAs duas senhas não conferem."
                     senhaConfirm.style.borderColor = "red"
-                    labelSenhaConfirm.stule.color = "red"
-                    erroSenhaConfirm.textContent = "\nO campo de confirmação de senha não pode ser vazio."
+                    labelSenhaConfirm.style.color = "red"
                 }
-                if (senha.value !== senhaConfirm.value) {
-                    submitButton.disabled = true
-                    senha.style.color = "red"
-                    senha.style.borderColor = "red"
-                    labelSenha.stule.color = "red"
-                    senhaConfirm.style.color = "red"
-                    senhaConfirm.style.borderColor = "red"
-                    labelSenhaConfirm.stule.color = "red"
-                    erroSenhaConfirm.textContent = "\nAs duas senhas digitadas não são iguais."
+                else {
+                    erroSenhaConfirm.textContent = ""
+                    senhaConfirm.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                    labelSenhaConfirm.style.color = "var(--bs-body-color)"
                 }
-
             }
 
             function validarData(){}
 
             document.querySelector("#nome").addEventListener("keyup", validarNome)
             document.querySelector("#sobrenome").addEventListener("keyup", validarSobrenome)
-            document.querySelector("#senha-confirm").addEventListener("blur", validarSenha)
+            document.querySelector("#senha").addEventListener("blur", validarSenha)
+            document.querySelector("#senha-confirm").addEventListener("blur", validarSenhaConfirm)
         </script>
     </div>
 </body>
