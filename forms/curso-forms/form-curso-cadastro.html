@@ -6,6 +6,12 @@
     <!-- TODO: mudar a linha abaico quando adicionar no django -->
     <link rel="stylesheet" href="./../../templates/static/bootstrap/css/bootstrap.css"> 
     <title>Cadastrar Curso</title>
+    <style>
+        .error {
+            color: red; 
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
     <div class="container px-4">
@@ -13,15 +19,16 @@
         <h4 class="text-center mb-4">Cadastrar Curso</h4>
         <form class="px-4" action="" method="POST">
             <div class="row mb-2">
-
                 <div class="col">
-                    <label class="form-label" for="cod_curso">Código do Curso</label>
-                    <input required class="form-control" type="text" id="cod_curso" name="cod_curso" placeholder="Digite o código do Curso"> 
+                    <label class="form-label" for="cod_curso" id="label-codcurso">Código do Curso</label>
+                    <input required class="form-control" type="text" id="cod_curso" name="cod_curso" placeholder="Digite o código do Curso">
+                    <span id="erroCod" class="error"></span> 
                 </div>
 
                 <div class="col-8">
-                    <label class="form-label" for="nome_curso">Nome do Curso</label>
+                    <label class="form-label" for="nome_curso" id="labelNome">Nome do Curso</label>
                     <input required class="form-control" type="text" id="nome_curso" name="nome_curso" placeholder="Digite o nome do curso">
+                    <span id="erroNome" class="error"></span> 
                 </div>
             </div>
 
@@ -31,6 +38,58 @@
         </form>
         <script>
             // Adicionar validação dos campos do formulário
+            var submitButton = document.querySelector("#submit")
+
+            function validarCodCurso() {
+                // Verificar se o codigo do curso contem apenas numeros
+                var codCurso = document.querySelector("#cod_curso")
+                var label = document.querySelector("#label-codcurso")
+                var spanError = document.querySelector("#erroCod")
+                if(isNaN(codCurso.value)){
+                    codCurso.style.borderColor = "red"
+                    codCurso.style.color = "red"
+                    label.style.color = "red"
+                    spanError.textContent = "\nO codigo do curso não deve conter letras ou caracteres especiais."
+                    submitButton.disabled = true
+                }
+                if(codCurso.value.length != 3){
+                    codCurso.style.borderColor = "red"
+                    codCurso.style.color = "red"
+                    label.style.color = "red"
+                    spanError.textContent = "\nO codigo do curso deve conter 3 caracteres somente."
+                    submitButton.disabled = true
+                }
+                else{
+                    codCurso.style.borderColor = "var(--bs-border-width) solid var(--bs-border-color)"
+                    codCurso.style.color = "black"
+                    label.style.color = "black"
+                    spanError.textContent = ""
+                    submitButton.disabled = false
+                }
+            }
+
+            function validarNomeCurso(){
+                // Verificar se o nome do curso contém numeros ou caracteres especiais
+                var nomeCurso = document.querySelector("#nome_curso")
+                var label = document.querySelector("#labelNome")
+                var spanError = document.querySelector("#erroNome")
+                if(/[@!#$%^&*()/\\0-9]/.test(nomeCurso.value)){
+                    nomeCurso.style.borderColor = "red"
+                    nomeCurso.style.color = "red"
+                    label.style.color = "red"
+                    spanError.textContent = "\nO codigo do curso não deve conter números ou caracteres especiais."
+                    submitButton.disabled = true
+                }
+                else{
+                    nomeCurso.style.borderColor = "var(--bs-border-width) solid var(--bs-border-color)"
+                    nomeCurso.style.color = "black"
+                    label.style.color = "black"
+                    spanError.textContent = ""
+                    submitButton.disabled = false
+                }
+            }
+            document.querySelector('#cod_curso').addEventListener('keyup', validarCodCurso)
+            document.querySelector('#nome_curso').addEventListener('keyup', validarNomeCurso)
         </script>
     </div>
 </body>
