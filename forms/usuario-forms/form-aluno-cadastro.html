@@ -44,7 +44,7 @@
                             <span class="error" id="span-error-data-ingresso"></span>
                         </div>
                         <div class="col">
-                            <label for="conclusao" class="form-label" id="label-data-conclusão">Data de Conclusão prevista</label>
+                            <label for="conclusao" class="form-label" id="label-data-conclusao">Data de Conclusão prevista</label>
                             <input required type="date" id="conclusao" name="data-conclusao" class="form-control">
                             <span class="error" id="span-error-data-conclusao"></span>
                         </div>
@@ -130,6 +130,25 @@
                 var email = document.querySelector("#email")
                 var labelEmail = document.querySelector("#label-email")
                 var erroEmail = document.querySelector("#span")
+
+                usuario = email.value.substring(0, email.value.indexOf("@"))
+                dominio = email.value.substring(email.value.indexOf("@")+1, email.value.length)
+
+                if ((usuario.length >=1) && (dominio.length >=3) && (usuario.search("@")==-1) &&
+                    (dominio.search("@")==-1) && (usuario.search(" ")==-1) && (dominio.search(" ")==-1) &&
+                    (dominio.search(".")!=-1) && (dominio.indexOf(".") >=1)&& (dominio.lastIndexOf(".") < dominio.length - 1)) 
+                {
+                    // email válida
+                    email.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                    labelEmail.style.color = "black"
+                    erroEmail.textContent = ""
+                }
+                else {
+                    // email invalido
+                    email.style.borderColor = "red"
+                    labelEmail.style.color = "red"
+                    erroEmail.textContent = "Email Inválido"
+                }
             }
 
             // Validação do campo de senha
@@ -168,7 +187,8 @@
                 erroSenha.textContent = msnError               
 
             }
-
+            
+            // Validação do campo de confirmação de senha 
             function validarSenhaConfirm() {
                 // VALIDAÇÃO DO CAMPO DE CONFIRMAÇÃO DE SENHA                                                                                                                                                  
                 var senhaConfirm = document.querySelector("#senha-confirm")
@@ -188,12 +208,42 @@
                 }
             }
 
-            function validarData(){}
+            // Validar datas de inicio e de fim do curso
+            function validarData(){
+                var ingresso = document.querySelector("#ingresso")
+                var conclusao = document.querySelector("#conclusao")
+
+                // Se a data de ingresso for maior do que a data de conclusão, datas invalidas
+                var dataIngressoList = ingresso.value.split("-") 
+                var dataConclusaoList = conclusao.value.split("-") 
+
+                // Se o ano ou o dia ou o mes da conclusão for maior que o ingresso as datas são válidas
+                if (
+                    (dataConclusaoList[0] > dataIngressoList[0]) ||
+                    (dataConclusaoList[1] > dataIngressoList[1]) ||
+                    (dataConclusaoList[2] > dataIngressoList[2])
+                    )
+                    {
+                        // Data válida
+                        ingresso.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                        conclusao.style.border = "var(--bs-border-width) solid var(--bs-border-color)"
+                        submitButton.disabled = false
+                    }
+                else {
+                    // data inválida
+                    ingresso.style.borderColor = "red"
+                    conclusao.style.borderColor = "red"
+                    submitButton.disabled = true
+                }
+            }
 
             document.querySelector("#nome").addEventListener("keyup", validarNome)
             document.querySelector("#sobrenome").addEventListener("keyup", validarSobrenome)
             document.querySelector("#senha").addEventListener("blur", validarSenha)
             document.querySelector("#senha-confirm").addEventListener("blur", validarSenhaConfirm)
+            document.querySelector("#email").addEventListener("blur", validarEmail)
+            document.querySelector("#conclusao").addEventListener("blur", validarData)
+
         </script>
     </div>
 </body>
