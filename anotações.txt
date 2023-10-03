@@ -1,10 +1,26 @@
 #######            COMMITS SEMANTICOS            #######
 
-FIX: Correção de bug.
-FEAT: Inicia a implementação de uma nova feature.
-REFACTOR: Ajustar, refatorar sem alterar o funcionamento. 
-DOCS: Insere documentação / redme do repositório.
-TEST: Implementa Testes Automatizados.
-PERF: Ajustes de performance. 
-CI: Ajustes na configuração de CI.
-BUILD: Ajustes na configuração de Build.
+1. Porque usar commits semanticos?
+
+i.   Ganho de produtividade;
+ii.  Clareza e melhora na comunicação;
+iii. Facilidade de navegação no historico do projeto;
+iv.  Facilidade de geração de notas de lançamento.
+
+2. Commits Semanticos
+
+TIPO     |DESCRIÇÃO
+---------|-----------------------------------------------|
+FIX:     |Correção de bug.                               |
+FEAT:    |Inicia a implementação de uma nova feature.    |
+REFACTOR:|Ajustar, refatorar sem alterar o funcionamento.| 
+DOCS:    |Insere documentação / redme do repositório.    |
+TEST:    |Implementa Testes Automatizados.               |
+PERF:    |Ajustes de performance.                        |
+CI:      |Ajustes na configuração de CI.                 |
+BUILD:   |Ajustes na configuração de Build.              |
+---------|-----------------------------------------------|
+
+3. Exemplo de commit semantico
+
+git commit -m "tipo: descrição do commit ..."
